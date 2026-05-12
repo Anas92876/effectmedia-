@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ffprobe:*)",
+      "Bash(powershell -Command \"\n$path = 'C:\\\\Users\\\\User\\\\OneDrive\\\\Desktop\\\\EffectMedia\\\\logo with another data\\\\1.mp4'\n$shell = New-Object -ComObject Shell.Application\n$folder = $shell.Namespace\\([System.IO.Path]::GetDirectoryName\\($path\\)\\)\n$file = $folder.ParseName\\([System.IO.Path]::GetFileName\\($path\\)\\)\n0..320 | ForEach-Object { $val = $folder.GetDetailsOf\\($file, $_\\); if\\($val\\) { $name = $folder.GetDetailsOf\\($null, $_\\); Write-Host \\('{0}: {1} = {2}' -f $_, $name, $val\\) } }\n\")",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git --yes)"
+    ]
+  }
+}
