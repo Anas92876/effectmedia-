@@ -80,6 +80,7 @@ html {
   background-color: var(--color-background);
   color: var(--color-text);
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 html[dir="rtl"] { direction: rtl; text-align: right; }

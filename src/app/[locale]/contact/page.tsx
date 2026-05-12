@@ -133,7 +133,7 @@ export default function ContactPage() {
                       onChange={(e) => setForm({ ...form, service: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl text-sm outline-none"
                       style={{
-                        background: 'rgba(0,0,60,0.6)',
+                        background: '#000060',
                         border: '1px solid var(--color-border)',
                         color: form.service ? 'var(--color-text)' : 'var(--color-text-muted)',
                         fontFamily: 'var(--font-main)',

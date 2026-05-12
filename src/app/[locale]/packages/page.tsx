@@ -34,12 +34,11 @@ export default function PackagesPage() {
       <section className="section-padding">
         <div className="container-main">
           <SectionHeader
-            label={t('socialTitle')}
             title={t('socialTitle')}
             subtitle={t('socialSubtitle')}
             centered
           />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {socialPkgs.map((pkg) => (
               <div
                 key={pkg.id}
@@ -91,7 +90,6 @@ export default function PackagesPage() {
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
           <SectionHeader
-            label={t('exhibitionTitle')}
             title={t('exhibitionTitle')}
             subtitle={t('exhibitionSubtitle')}
             centered
