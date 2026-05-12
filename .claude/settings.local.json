@@ -3,7 +3,22 @@
     "allow": [
       "Bash(ffprobe:*)",
       "Bash(powershell -Command \"\n$path = 'C:\\\\Users\\\\User\\\\OneDrive\\\\Desktop\\\\EffectMedia\\\\logo with another data\\\\1.mp4'\n$shell = New-Object -ComObject Shell.Application\n$folder = $shell.Namespace\\([System.IO.Path]::GetDirectoryName\\($path\\)\\)\n$file = $folder.ParseName\\([System.IO.Path]::GetFileName\\($path\\)\\)\n0..320 | ForEach-Object { $val = $folder.GetDetailsOf\\($file, $_\\); if\\($val\\) { $name = $folder.GetDetailsOf\\($null, $_\\); Write-Host \\('{0}: {1} = {2}' -f $_, $name, $val\\) } }\n\")",
-      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git --yes)"
+      "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-git --yes)",
+      "Bash(npm install:*)",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/fonts\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/videos\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/images/effect-media\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/logo\")",
+      "Bash(cp \"C:/Users/User/OneDrive/Desktop/EffectMedia/logo with another data/\"*.ttf \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/fonts/\")",
+      "Bash(cp \"C:/Users/User/OneDrive/Desktop/EffectMedia/logo with another data/logo effect.svg\" \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/logo/logo.svg\")",
+      "Bash(cp \"C:/Users/User/OneDrive/Desktop/EffectMedia/logo with another data/1.mp4\" \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/videos/intro.mp4\")",
+      "Bash(cp \"C:/Users/User/OneDrive/Desktop/EffectMedia/imgs/\"* \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/public/images/effect-media/\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/about\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/services\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/packages\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/portfolio\")",
+      "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/contact\")",
+      "Bash(npm run:*)"
     ]
   }
 }
