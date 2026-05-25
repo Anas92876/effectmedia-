@@ -6,6 +6,7 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/layout/WhatsAppButton';
 import IntroVideo from '@/components/layout/IntroVideo';
+import ScrollAnimator from '@/components/shared/ScrollAnimator';
 import type { Metadata } from 'next';
 
 export async function generateMetadata({
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <IntroVideo />
           <Navbar />
+          <ScrollAnimator />
           <main>{children}</main>
           <Footer />
           <WhatsAppButton />

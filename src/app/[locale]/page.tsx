@@ -86,7 +86,7 @@ export default function HomePage() {
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="gsap-fade">
               <p className="section-label mb-2">{t('intro.label')}</p>
               <div className="divider-line" />
               <h2 className="text-3xl md:text-4xl font-black mt-3 mb-5" style={{ color: 'var(--color-white)' }}>
@@ -99,7 +99,7 @@ export default function HomePage() {
                 {t('intro.link')}
               </Link>
             </div>
-            <div className="relative rounded-2xl overflow-hidden h-72 md:h-96">
+            <div className="relative rounded-2xl overflow-hidden h-72 md:h-96 gsap-fade">
               <Image
                 src="/images/effect-media/insightstudios-img24.jpg"
                 alt="Effect Media Team"
@@ -120,12 +120,14 @@ export default function HomePage() {
       {/* ── Services Preview ──────────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <SectionHeader
-            label={t('services.label')}
-            title={t('services.title')}
-            subtitle={t('services.subtitle')}
-          />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+          <div className="gsap-fade">
+            <SectionHeader
+              label={t('services.label')}
+              title={t('services.title')}
+              subtitle={t('services.subtitle')}
+            />
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 gsap-stagger">
             {servicesList.slice(0, 6).map((svc) => (
               <div key={svc.id} className="glass-card p-6 group transition-all duration-300 hover:-translate-y-1"
                 style={{ boxShadow: 'var(--shadow-card)' }}>
@@ -138,7 +140,7 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <div className="text-center">
+          <div className="text-center gsap-fade">
             <Link href="/services" className="btn-outline">{t('services.viewAll')}</Link>
           </div>
         </div>
@@ -148,13 +150,13 @@ export default function HomePage() {
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
+            <div className="gsap-fade">
               <SectionHeader label={t('whyUs.label')} title={t('whyUs.title')} />
               <p className="text-base leading-relaxed" style={{ color: 'var(--color-text-muted)' }}>
                 {t('whyUs.text')}
               </p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 gsap-stagger">
               {whyPoints.map((pt, i) => (
                 <div key={i} className="glass-card p-5">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center mb-3 text-sm font-black"
@@ -173,12 +175,16 @@ export default function HomePage() {
       {/* ── Packages Preview ──────────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <SectionHeader label={homePkgs('label')} title={homePkgs('title')} centered />
-          <PackagesCarousel
-            packages={socialPackages.slice(0, 4)}
-            getPackageLabel={pkgs('requestBtn')}
-            viewAllLabel={homePkgs('viewAll')}
-          />
+          <div className="gsap-fade">
+            <SectionHeader label={homePkgs('label')} title={homePkgs('title')} centered />
+          </div>
+          <div className="gsap-fade">
+            <PackagesCarousel
+              packages={socialPackages.slice(0, 4)}
+              getPackageLabel={pkgs('requestBtn')}
+              viewAllLabel={homePkgs('viewAll')}
+            />
+          </div>
         </div>
       </section>
 
@@ -191,7 +197,7 @@ export default function HomePage() {
           <div className="absolute bottom-0 inset-x-0 h-px"
             style={{ background: 'linear-gradient(90deg, transparent, var(--color-secondary), transparent)' }} />
         </div>
-        <div className="container-main relative z-10 text-center">
+        <div className="container-main relative z-10 text-center gsap-fade">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-4" style={{ color: 'var(--color-white)' }}>
             {t('cta.title')}
           </h2>

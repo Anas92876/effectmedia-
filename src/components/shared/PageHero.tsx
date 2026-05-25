@@ -31,7 +31,7 @@ export default function PageHero({ label, title, text, image }: PageHeroProps) {
         style={{ background: 'linear-gradient(90deg, transparent, var(--color-primary), transparent)' }}
       />
 
-      <div className="container-main relative z-10">
+      <div className="container-main relative z-10 gsap-fade">
         <p className="section-label mb-3">{label}</p>
         <div className="divider-line" />
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-5 leading-tight" style={{ color: 'var(--color-white)' }}>
