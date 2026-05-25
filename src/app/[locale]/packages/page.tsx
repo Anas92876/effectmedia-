@@ -25,7 +25,7 @@ export default function PackagesPage() {
         text={t('hero.text')}
       />
 
-      <div className="container-main">
+      <div className="container-main gsap-fade">
         <p className="text-xs text-center py-3 mb-2" style={{ color: 'var(--color-text-muted)' }}>
           {t('priceNote')}
         </p>
@@ -34,28 +34,34 @@ export default function PackagesPage() {
       {/* ── Social Media Packages ─────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <SectionHeader
-            title={t('socialTitle')}
-            subtitle={t('socialSubtitle')}
-            centered
-          />
-          <PackagesCarousel
-            packages={socialPkgs}
-            getPackageLabel={t('requestBtn')}
-            whatsappPhone={phone}
-          />
+          <div className="gsap-fade">
+            <SectionHeader
+              title={t('socialTitle')}
+              subtitle={t('socialSubtitle')}
+              centered
+            />
+          </div>
+          <div className="gsap-fade">
+            <PackagesCarousel
+              packages={socialPkgs}
+              getPackageLabel={t('requestBtn')}
+              whatsappPhone={phone}
+            />
+          </div>
         </div>
       </section>
 
       {/* ── Exhibition Packages ───────────────────────────────── */}
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
-          <SectionHeader
-            title={t('exhibitionTitle')}
-            subtitle={t('exhibitionSubtitle')}
-            centered
-          />
-          <div className="grid sm:grid-cols-3 gap-6">
+          <div className="gsap-fade">
+            <SectionHeader
+              title={t('exhibitionTitle')}
+              subtitle={t('exhibitionSubtitle')}
+              centered
+            />
+          </div>
+          <div className="grid sm:grid-cols-3 gap-6 gsap-stagger">
             {exhibitionPkgs.map((pkg) => (
               <div
                 key={pkg.id}
@@ -107,7 +113,7 @@ export default function PackagesPage() {
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="section-padding text-center"
         style={{ background: 'linear-gradient(135deg, #000060, #00004C)' }}>
-        <div className="container-main">
+        <div className="container-main gsap-fade">
           <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-white)' }}>
             {t('cta.title')}
           </h2>

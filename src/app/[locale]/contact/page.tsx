@@ -37,7 +37,7 @@ export default function ContactPage() {
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12">
             {/* ── Contact Info ── */}
-            <div>
+            <div className="gsap-fade">
               <h2 className="text-2xl font-black mb-6" style={{ color: 'var(--color-white)' }}>
                 {t('info.title')}
               </h2>
@@ -87,7 +87,7 @@ export default function ContactPage() {
             </div>
 
             {/* ── Form ── */}
-            <div className="glass-card p-8">
+            <div className="glass-card p-8 gsap-fade">
               <h2 className="text-2xl font-black mb-6" style={{ color: 'var(--color-white)' }}>
                 {formT('title')}
               </h2>
@@ -178,10 +178,10 @@ export default function ContactPage() {
       {/* ── FAQ ──────────────────────────────────────────────── */}
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main max-w-2xl mx-auto">
-          <h2 className="text-2xl md:text-3xl font-black mb-8 text-center" style={{ color: 'var(--color-white)' }}>
+          <h2 className="text-2xl md:text-3xl font-black mb-8 text-center gsap-fade" style={{ color: 'var(--color-white)' }}>
             {faqT('title')}
           </h2>
-          <div className="space-y-3">
+          <div className="space-y-3 gsap-stagger">
             {faqList.map((faq, i) => (
               <div key={i} className="glass-card overflow-hidden">
                 <button

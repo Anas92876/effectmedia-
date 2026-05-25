@@ -2,16 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
-
-// Module-level flag: false on every hard refresh, true after first play within same JS session (client navigation)
-let introPlayed = false;
+import { introState } from '@/lib/introState';
 
 export default function IntroVideo() {
   const t = useTranslations('intro');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   // Start visible=true so the overlay is in the server HTML — no page flash possible
-  const [show, setShow] = useState(!introPlayed);
+  const [show, setShow] = useState(!introState.played);
   const [fading, setFading] = useState(false);
 
   useEffect(() => {
@@ -22,7 +20,7 @@ export default function IntroVideo() {
   }, []);
 
   const dismiss = () => {
-    introPlayed = true;
+    introState.markDone(); // marks played + dispatches 'intro-done' event
     setFading(true);
     setTimeout(() => {
       setShow(false);

@@ -23,7 +23,7 @@ export default function AboutPage() {
       <section className="section-padding">
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden">
+            <div className="relative h-80 md:h-[480px] rounded-2xl overflow-hidden gsap-fade">
               <Image
                 src="/images/effect-media/man-filming-with-professional-camera (3).jpg"
                 alt="Effect Media"
@@ -33,7 +33,7 @@ export default function AboutPage() {
               />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,76,0.6), transparent)' }} />
             </div>
-            <div>
+            <div className="gsap-fade">
               <p className="section-label mb-2">{t('whoWeAre.label')}</p>
               <div className="divider-line" />
               <h2 className="text-3xl md:text-4xl font-black mt-3 mb-5" style={{ color: 'var(--color-white)' }}>
@@ -51,7 +51,7 @@ export default function AboutPage() {
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <div className="gsap-fade">
               <p className="section-label mb-2">{t('vision.label')}</p>
               <div className="divider-line" />
               <h2 className="text-3xl md:text-4xl font-black mt-3 mb-5" style={{ color: 'var(--color-white)' }}>
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 {t('vision.text')}
               </p>
             </div>
-            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden">
+            <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden gsap-fade">
               <Image
                 src="/images/effect-media/Jakob_Owens_2017-03-31_(Unsplash_ycExgCMRggc).jpg"
                 alt="Our Vision"
@@ -78,12 +78,14 @@ export default function AboutPage() {
       {/* ── Values ───────────────────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <SectionHeader
-            label={t('values.label')}
-            title={t('values.title')}
-            centered
-          />
-          <div className="flex flex-wrap justify-center gap-5">
+          <div className="gsap-fade">
+            <SectionHeader
+              label={t('values.label')}
+              title={t('values.title')}
+              centered
+            />
+          </div>
+          <div className="flex flex-wrap justify-center gap-5 gsap-stagger">
             {values.map((val, i) => (
               <div
                 key={i}
@@ -101,8 +103,10 @@ export default function AboutPage() {
       <section className="section-padding" style={{ background: 'var(--color-bg-section)' }}>
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-12 items-start">
-            <SectionHeader label={t('difference.label')} title={t('difference.title')} />
-            <ul className="space-y-4">
+            <div className="gsap-fade">
+              <SectionHeader label={t('difference.label')} title={t('difference.title')} />
+            </div>
+            <ul className="space-y-4 gsap-stagger">
               {diffPoints.map((pt, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span
@@ -122,7 +126,7 @@ export default function AboutPage() {
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="section-padding text-center"
         style={{ background: 'linear-gradient(135deg, #000060, #00004C)' }}>
-        <div className="container-main">
+        <div className="container-main gsap-fade">
           <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-white)' }}>
             {t('cta.title')}
           </h2>

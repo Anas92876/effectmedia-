@@ -29,7 +29,7 @@ export default function PortfolioPage() {
 
       {/* ── Filter Bar ────────────────────────────────────────── */}
       <section className="py-8" style={{ background: 'var(--color-bg-section)' }}>
-        <div className="container-main flex flex-wrap gap-3 justify-center">
+        <div className="container-main flex flex-wrap gap-3 justify-center gsap-fade">
           {filterKeys.map((key) => (
             <button
               key={key}
@@ -50,7 +50,7 @@ export default function PortfolioPage() {
       {/* ── Grid ─────────────────────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 gsap-stagger">
             {filtered.map((item) => (
               <div
                 key={item.id}
@@ -92,7 +92,7 @@ export default function PortfolioPage() {
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="section-padding text-center"
         style={{ background: 'linear-gradient(135deg, #000060, #00004C)' }}>
-        <div className="container-main">
+        <div className="container-main gsap-fade">
           <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-white)' }}>
             {t('cta.title')}
           </h2>

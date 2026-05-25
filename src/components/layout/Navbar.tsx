@@ -6,6 +6,7 @@ import { usePathname, useRouter } from '@/i18n/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
+import { introState } from '@/lib/introState';
 
 const navLinks = [
   { key: 'home',      href: '/'          },
@@ -16,8 +17,8 @@ const navLinks = [
   { key: 'contact',   href: '/contact'   },
 ] as const;
 
-// Easing curve for link entrance (custom cubic-bezier for a snappy feel)
-const linkEase = [0.22, 1, 0.36, 1] as const;
+// Easing curve shared across entrance + mobile overlay animations
+const snappy = [0.22, 1, 0.36, 1] as const;
 
 export default function Navbar() {
   const t = useTranslations('nav');
@@ -26,6 +27,19 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  // True immediately if video already played this session; otherwise waits for 'intro-done' event
+  const [animReady, setAnimReady] = useState(introState.played);
+
+  // RTL-aware directional offset for slide-in
+  const isRtl = locale === 'ar';
+
+  // ── Wait for intro video to finish before animating in ──────────
+  useEffect(() => {
+    if (animReady) return;
+    const handler = () => setAnimReady(true);
+    window.addEventListener('intro-done', handler);
+    return () => window.removeEventListener('intro-done', handler);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Scroll detection ────────────────────────────────────────────
   useEffect(() => {
@@ -76,46 +90,65 @@ export default function Navbar() {
         }}
       >
         <div className="container-main flex items-center justify-between py-4">
-          {/* Logo */}
-          <Link
-            href="/"
-            onClick={closeMenu}
-            className="flex-shrink-0 relative z-10"
-          >
-            <Image
-              src="/logo/logo.svg"
-              alt="Effect Media"
-              width={160}
-              height={52}
-              priority
-              className="h-10 w-auto"
-            />
-          </Link>
 
-          {/* Desktop Nav */}
+          {/* ── Logo — slides in from the leading edge ─────────────── */}
+          <motion.div
+            initial={{ opacity: 0, x: isRtl ? 24 : -24 }}
+            animate={animReady ? { opacity: 1, x: 0 } : { opacity: 0, x: isRtl ? 24 : -24 }}
+            transition={{ duration: 0.42, ease: snappy, delay: 0.05 }}
+            className="flex-shrink-0"
+          >
+            <Link href="/" onClick={closeMenu} className="relative z-10 block">
+              <Image
+                src="/logo/logo.svg"
+                alt="Effect Media"
+                width={160}
+                height={52}
+                priority
+                className="h-10 w-auto"
+              />
+            </Link>
+          </motion.div>
+
+          {/* ── Desktop Nav — links stagger down from above ─────────── */}
           <nav className="hidden md:flex items-center gap-1">
-            {navLinks.map(({ key, href }) => (
-              <Link
+            {navLinks.map(({ key, href }, i) => (
+              <motion.div
                 key={key}
-                href={href}
-                className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
-                style={{
-                  color: isActive(href)
-                    ? 'var(--color-primary)'
-                    : 'var(--color-text)',
-                  background: isActive(href)
-                    ? 'rgba(40,158,217,0.1)'
-                    : 'transparent',
-                  fontFamily: 'var(--font-main)',
+                initial={{ opacity: 0, y: -14 }}
+                animate={animReady ? { opacity: 1, y: 0 } : { opacity: 0, y: -14 }}
+                transition={{
+                  duration: 0.34,
+                  ease: snappy,
+                  delay: 0.08 + i * 0.048,
                 }}
               >
-                {t(key)}
-              </Link>
+                <Link
+                  href={href}
+                  className="px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200"
+                  style={{
+                    color: isActive(href)
+                      ? 'var(--color-primary)'
+                      : 'var(--color-text)',
+                    background: isActive(href)
+                      ? 'rgba(40,158,217,0.1)'
+                      : 'transparent',
+                    fontFamily: 'var(--font-main)',
+                  }}
+                >
+                  {t(key)}
+                </Link>
+              </motion.div>
             ))}
           </nav>
 
-          {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          {/* ── Right actions — slide in from the trailing edge ─────── */}
+          <motion.div
+            className="flex items-center gap-3"
+            initial={{ opacity: 0, x: isRtl ? -24 : 24 }}
+            animate={animReady ? { opacity: 1, x: 0 } : { opacity: 0, x: isRtl ? -24 : 24 }}
+            transition={{ duration: 0.42, ease: snappy, delay: 0.14 }}
+          >
             {/* Language switcher — desktop only */}
             <button
               onClick={switchLocale}
@@ -137,13 +170,6 @@ export default function Navbar() {
             </div>
 
             {/* ── Hamburger button ─────────────────────────────────── */}
-            {/*
-              BUG FIX: Previous code used wrong transform order and values.
-              Correct transforms to form an X cross:
-                - Container: w-5 h-4 (20×16px)
-                - Top bar center at y=1px, middle at y=8px → distance 7px
-                - translateY(7px) before rotate() → translates in document space first
-            */}
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-label={
@@ -192,15 +218,12 @@ export default function Navbar() {
                 />
               </div>
             </button>
-          </div>
+          </motion.div>
+
         </div>
       </header>
 
       {/* ── Full-screen mobile menu overlay ──────────────────────── */}
-      {/*
-        z-40 so the header (z-50) sits above the overlay,
-        keeping the hamburger/X button clickable at all times.
-      */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -211,12 +234,11 @@ export default function Navbar() {
             transition={{ duration: 0.22, ease: 'easeInOut' }}
             className="fixed inset-0 z-40 flex flex-col items-center justify-center md:hidden"
             style={{ background: 'rgba(0,0,14,0.97)' }}
-            /* Close when tapping the backdrop itself */
             onClick={(e) =>
               e.target === e.currentTarget && setMenuOpen(false)
             }
           >
-            {/* Ambient radial glow — purely decorative */}
+            {/* Ambient radial glow */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
@@ -241,7 +263,7 @@ export default function Navbar() {
               }}
             />
 
-            {/* ── Navigation links (vertically + horizontally centered) */}
+            {/* Navigation links */}
             <nav
               className="relative z-10 flex flex-col items-center gap-0 mb-12"
               onClick={(e) => e.stopPropagation()}
@@ -255,7 +277,7 @@ export default function Navbar() {
                   transition={{
                     delay: 0.03 + i * 0.05,
                     duration: 0.38,
-                    ease: linkEase,
+                    ease: snappy,
                   }}
                 >
                   <Link
@@ -263,15 +285,11 @@ export default function Navbar() {
                     onClick={closeMenu}
                     className="group relative block py-2.5 px-10 text-center transition-all duration-200"
                   >
-                    {/* Active / hover underline */}
                     <span
                       className="absolute inset-x-10 bottom-1.5 h-px transition-all duration-200 origin-center"
                       style={{
                         background: 'var(--color-primary)',
-                        transform:
-                          isActive(href)
-                            ? 'scaleX(1)'
-                            : 'scaleX(0)',
+                        transform: isActive(href) ? 'scaleX(1)' : 'scaleX(0)',
                         opacity: isActive(href) ? 1 : 0,
                       }}
                     />
@@ -292,7 +310,7 @@ export default function Navbar() {
               ))}
             </nav>
 
-            {/* ── Bottom actions ────────────────────────────────────── */}
+            {/* Bottom actions */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -301,18 +319,12 @@ export default function Navbar() {
               className="relative z-10 flex flex-col items-center gap-3 w-full px-10"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Divider */}
               <div
                 className="w-12 h-px mb-1"
                 style={{ background: 'var(--color-border)' }}
               />
-
-              {/* Language switcher */}
               <button
-                onClick={() => {
-                  switchLocale();
-                  closeMenu();
-                }}
+                onClick={() => { switchLocale(); closeMenu(); }}
                 className="flex items-center gap-2 text-sm font-bold px-5 py-2.5 rounded-xl border transition-all duration-200 hover:scale-105"
                 style={{
                   color: 'var(--color-primary)',
@@ -323,8 +335,6 @@ export default function Navbar() {
               >
                 🌐 {locale === 'ar' ? 'English' : 'عربي'}
               </button>
-
-              {/* Contact CTA */}
               <Link
                 href="/contact"
                 onClick={closeMenu}

@@ -25,7 +25,7 @@ export default function HeroEffects() {
     };
     resize();
 
-    const N = 45;
+    const N = 700;
     const pts: Particle[] = Array.from({ length: N }, () => {
       const bvx = (Math.random() - 0.5) * 0.3;
       const bvy = (Math.random() - 0.5) * 0.3;
@@ -54,16 +54,17 @@ export default function HeroEffects() {
       for (const p of pts) {
         const dx = p.x - mx, dy = p.y - my;
         const d = Math.hypot(dx, dy);
-        if (d < 80 && d > 0) {
-          p.vx += (dx / d) * 0.07;
-          p.vy += (dy / d) * 0.07;
+        if (d < 120 && d > 0) {
+          const force = (1 - d / 120) * 0.6;
+          p.vx += (dx / d) * force;
+          p.vy += (dy / d) * force;
         }
         // Drift back toward base velocity
         p.vx = p.vx * 0.96 + p.bvx * 0.04;
         p.vy = p.vy * 0.96 + p.bvy * 0.04;
         // Speed cap
         const spd = Math.hypot(p.vx, p.vy);
-        if (spd > 1.2) { p.vx = (p.vx / spd) * 1.2; p.vy = (p.vy / spd) * 1.2; }
+        if (spd > 5) { p.vx = (p.vx / spd) * 5; p.vy = (p.vy / spd) * 5; }
 
         p.x = (p.x + p.vx + w) % w;
         p.y = (p.y + p.vy + h) % h;

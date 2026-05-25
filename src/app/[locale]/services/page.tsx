@@ -23,7 +23,7 @@ export default function ServicesPage() {
       {/* ── Services List ─────────────────────────────────────── */}
       <section className="section-padding">
         <div className="container-main">
-          <div className="space-y-8">
+          <div className="space-y-8 gsap-stagger">
             {servicesList.map((svc, index) => {
               const isEven = index % 2 === 0;
               return (
@@ -82,7 +82,7 @@ export default function ServicesPage() {
       {/* ── CTA ──────────────────────────────────────────────── */}
       <section className="section-padding text-center"
         style={{ background: 'linear-gradient(135deg, #000060, #00004C)' }}>
-        <div className="container-main">
+        <div className="container-main gsap-fade">
           <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-white)' }}>
             {t('cta.title')}
           </h2>
