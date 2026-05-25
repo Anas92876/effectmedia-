@@ -189,3 +189,6 @@ body {
   border-radius: 2px;
   margin-block: 0.75rem;
 }
+
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

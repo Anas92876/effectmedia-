@@ -44,6 +44,9 @@ export default function IntroVideo() {
         pointerEvents: fading ? 'none' : 'auto',
       }}
     >
+      {/* TODO: Replace /videos/intro.mp4 with the new company video once received.
+           Encode as H.264 MP4 + WebM fallback, max 1080p, and compress with HandBrake or ffmpeg:
+           ffmpeg -i input.mp4 -vcodec libx264 -crf 23 -preset slow -movflags +faststart output.mp4 */}
       <video
         ref={videoRef}
         src="/videos/intro.mp4"

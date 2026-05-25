@@ -2,10 +2,13 @@ import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import Link from 'next/link';
 import SectionHeader from '@/components/shared/SectionHeader';
+import HeroEffects from '@/components/shared/HeroEffects';
+import PackagesCarousel from '@/components/shared/PackagesCarousel';
 
 export default function HomePage() {
   const t = useTranslations('home');
   const locale = useLocale();
+  const meta = useTranslations('meta');
 
   const services = useTranslations('services');
   const servicesList = services.raw('list') as Array<{
@@ -44,16 +47,14 @@ export default function HomePage() {
           style={{ background: 'var(--color-primary)' }}
         />
 
+        {/* Interactive particle effects */}
+        <HeroEffects />
+
         <div className="container-main relative z-10 pt-24 pb-16">
-          {/* Trust line */}
-          <div className="flex flex-wrap items-center gap-3 mb-8">
-            {t('hero.trustLine').split('·').map((item, i) => (
-              <span key={i} className="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-full"
-                style={{ background: 'rgba(40,158,217,0.15)', color: 'var(--color-secondary)', border: '1px solid rgba(73,196,216,0.3)' }}>
-                {item.trim()}
-              </span>
-            ))}
-          </div>
+          {/* Company tagline */}
+          <p className="text-2xl md:text-3xl font-black mb-6 gradient-text tracking-wide">
+            {meta('tagline')}
+          </p>
 
           {/* Headline */}
           <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6 max-w-3xl"
@@ -173,38 +174,11 @@ export default function HomePage() {
       <section className="section-padding">
         <div className="container-main">
           <SectionHeader label={homePkgs('label')} title={homePkgs('title')} centered />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            {socialPackages.slice(0, 4).map((pkg) => (
-              <div
-                key={pkg.id}
-                className="glass-card p-6 flex flex-col transition-all duration-300 hover:-translate-y-1"
-                style={pkg.highlight ? { border: '1px solid var(--color-primary)', boxShadow: 'var(--shadow-glow)' } : {}}
-              >
-                {pkg.highlight && (
-                  <span className="text-xs font-black px-3 py-1 rounded-full mb-4 self-start"
-                    style={{ background: 'var(--color-primary)', color: '#fff' }}>
-                    ★ {locale === 'ar' ? 'الأكثر طلباً' : 'Most Popular'}
-                  </span>
-                )}
-                <h3 className="text-lg font-black mb-1" style={{ color: 'var(--color-white)' }}>{pkg.name}</h3>
-                <p className="text-3xl font-black mb-4 gradient-text">${pkg.price}</p>
-                <ul className="space-y-2 flex-1 mb-5">
-                  {pkg.points.map((pt, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                      <span style={{ color: 'var(--color-secondary)', flexShrink: 0 }}>✓</span>
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/packages" className="btn-primary text-sm py-2.5 text-center justify-center">
-                  {locale === 'ar' ? 'اطلب الباقة' : 'Get Package'}
-                </Link>
-              </div>
-            ))}
-          </div>
-          <div className="text-center">
-            <Link href="/packages" className="btn-outline">{homePkgs('viewAll')}</Link>
-          </div>
+          <PackagesCarousel
+            packages={socialPackages.slice(0, 4)}
+            getPackageLabel={pkgs('requestBtn')}
+            viewAllLabel={homePkgs('viewAll')}
+          />
         </div>
       </section>
 

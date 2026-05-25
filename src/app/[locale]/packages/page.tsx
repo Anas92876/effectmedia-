@@ -2,6 +2,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import PageHero from '@/components/shared/PageHero';
 import SectionHeader from '@/components/shared/SectionHeader';
+import PackagesCarousel from '@/components/shared/PackagesCarousel';
 
 export default function PackagesPage() {
   const t = useTranslations('packages');
@@ -38,51 +39,11 @@ export default function PackagesPage() {
             subtitle={t('socialSubtitle')}
             centered
           />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {socialPkgs.map((pkg) => (
-              <div
-                key={pkg.id}
-                className="glass-card p-6 flex flex-col transition-all duration-300 hover:-translate-y-2"
-                style={
-                  pkg.highlight
-                    ? { border: '1px solid var(--color-primary)', boxShadow: 'var(--shadow-glow)' }
-                    : {}
-                }
-              >
-                {pkg.highlight && (
-                  <span
-                    className="text-xs font-black px-3 py-1 rounded-full mb-4 self-start"
-                    style={{ background: 'var(--color-primary)', color: '#fff' }}
-                  >
-                    ★ {locale === 'ar' ? 'الأكثر طلباً' : 'Most Popular'}
-                  </span>
-                )}
-                <h3 className="text-lg font-black mb-1" style={{ color: 'var(--color-white)' }}>
-                  {pkg.name}
-                </h3>
-                <p className="text-4xl font-black mb-1 gradient-text">${pkg.price}</p>
-                <p className="text-xs mb-4" style={{ color: 'var(--color-text-muted)' }}>
-                  {locale === 'ar' ? 'شهرياً' : '/month'}
-                </p>
-                <ul className="space-y-2 flex-1 mb-6">
-                  {pkg.points.map((pt, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm" style={{ color: 'var(--color-text-muted)' }}>
-                      <span style={{ color: 'var(--color-secondary)', flexShrink: 0 }}>✓</span>
-                      {pt}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href={`https://wa.me/${phone}?text=${encodeURIComponent(pkg.name)}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-primary text-sm py-2.5 text-center justify-center"
-                >
-                  {t('requestBtn')}
-                </a>
-              </div>
-            ))}
-          </div>
+          <PackagesCarousel
+            packages={socialPkgs}
+            getPackageLabel={t('requestBtn')}
+            whatsappPhone={phone}
+          />
         </div>
       </section>
 
