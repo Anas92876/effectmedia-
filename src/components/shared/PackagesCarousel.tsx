@@ -119,8 +119,8 @@ export default function PackagesCarousel({
         ))}
       </div>
 
-      {/* Navigation controls */}
-      <div className="flex items-center justify-center gap-3 mt-6">
+      {/* Navigation controls — dir="ltr" prevents RTL flex reversal from fighting the isRtl logic */}
+      <div className="flex items-center justify-center gap-3 mt-6" dir="ltr">
         {/* Left arrow — "prev" in LTR, "next" in RTL */}
         <button
           onClick={() => goTo(isRtl ? active + 1 : active - 1)}
