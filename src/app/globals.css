@@ -3,20 +3,6 @@
 /* ─── Tajawal Font ─────────────────────────────────────────── */
 @font-face {
   font-family: 'Tajawal';
-  src: url('/fonts/Tajawal-ExtraLight-2.ttf') format('truetype');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Tajawal';
-  src: url('/fonts/Tajawal-Light.ttf') format('truetype');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Tajawal';
   src: url('/fonts/Tajawal-Regular-2.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
@@ -33,13 +19,6 @@
   font-family: 'Tajawal';
   src: url('/fonts/Tajawal-Bold-2.ttf') format('truetype');
   font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Tajawal';
-  src: url('/fonts/Tajawal-ExtraBold.ttf') format('truetype');
-  font-weight: 800;
   font-style: normal;
   font-display: swap;
 }

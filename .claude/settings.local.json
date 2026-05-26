@@ -18,7 +18,13 @@
       "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/packages\")",
       "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/portfolio\")",
       "Bash(mkdir -p \"C:/Users/User/OneDrive/Desktop/EffectMedia/website/src/app/[locale]/contact\")",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm ls *)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\User\\\\OneDrive\\\\Desktop\\\\EffectMedia\\\\website\\\\public\" -Recurse -File | Select-Object Name, @{Name='SizeKB';Expression={[math]::Round\\($_.Length/1KB,1\\)}} | Sort-Object SizeKB -Descending | Select-Object -First 25 | Format-Table -AutoSize)",
+      "Bash(node -e ' *)"
     ]
   }
 }
